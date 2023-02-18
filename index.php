@@ -23,6 +23,12 @@ $sistem = new Sistem;
 </head>
 <body>
     <div class="container-fluid">
+        <div class="row text-light bg-dark">
+            <div class="col-md-3 text-center border-end"><i class="fa-sharp fa-solid fa-cart-shopping text-light"></i> Toplam Sipariş : 10</div>
+            <div class="col-md-3 text-center border-end" ><i class="fa-sharp fa-solid fa-chart-column text-light"></i> Doluluk Oranı : 10</div>
+            <div class="col-md-3 text-center border-end"><i class="fa-sharp fa-solid fa-chart-layer-group text-light"></i>Toplam Masa : 10</a></div>
+            <div class="col-md-3 text-center border-end">Tarih : <?php echo date("d.m.Y"); ?></a></div>
+        </div>
         <div class="row">
             <?php $sistem->masagetir($db); ?>
         </div>
