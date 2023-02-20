@@ -28,6 +28,13 @@ class Sistem {
         $get = "SELECT * FROM masalar WHERE id=$id";
         return $this->sorgum($vt,$get,1);
     }
+
+    function urungrubu($vt) {
+        $gelen = $this->sorgum($vt, "SELECT * FROM kategori",1);
+        while ($son = $gelen->FETCH_ASSOC()):
+            echo '<a class="btn  mt-1 pt-2  text-center" sectionId="' . $son["id"] . '" style="margin:2px; background-color:#193d49; min-height:40px; min-width:80px; color:#58d0f8;">' . $son["ad"] . '</a>';
+        endwhile;   
+    }
 }
 
 ?>

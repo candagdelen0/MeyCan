@@ -17,22 +17,23 @@ $masam = new Sistem;
     <title>Masa Bilgi</title>
 
     <script>
-        $(document).ready(function() {	
+        $$(document).ready(function() {	
 	        var id="<?php echo $masaid; ?>";	
-	        $("#veri").load("islemler.php?islem=masaac&id="+id);
-	$('#btn').click(function() {		
-		$.ajax({			
-			type : "POST",
-			data :$('#formum').serialize(),			
-			success: function(donen_veri) {
-			    $("#veri").load("islemler.php?islem=masaac&id="+id);
-			    $('#formum').trigger("reset");	
-			    $("#cevap").html(donen_veri).fadeOut(1400);	
-				window.location.reload();
-			},			
-		})		
-	})
-});
+	        $("#veri").load("islem.php?islem=masagoster&id="+id);
+	        $('#btn').click(function() {		
+		        $.ajax({			
+			        type : "POST",
+			        url :'islem.php?islem=ekle',
+			        data :$('#formum').serialize(),			
+			        success: function(donen_veri) {
+			            $("#veri").load("islem.php?islem=masagoster&id="+id);
+			            $('#formum').trigger("reset");	
+			            $("#cevap").html(donen_veri).fadeOut(1400);	
+				        window.location.reload();
+			        },			
+		        })		
+	        })
+        });
 </script>
 </head>
 <body>
@@ -49,6 +50,12 @@ $masam = new Sistem;
                         <a href="index.php" class="btn btn-primary">Anasayfa</a><br>    
                         <?php echo $dizi["ad"]; ?>
                     </div>
+                    <div class="col-md*12">
+                        <div class="row">
+                            <div class="col-md-12 mx-auto" id="veri"></div>                    
+                            <div class="col-md-12" id="cevap"></div> 
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -56,7 +63,7 @@ $masam = new Sistem;
                 <div class="row pt-2">
                     <form id="formum">
                         <div class="col-md-12" style="min-height:200px; ">
-                            <?php echo "ürünler gelecek"; ?>
+                            <?php $masam->urungrubu($db); ?>
                         </div>     
                         <div class="col-md-12 text-center" style="min-height:410px; background-color:#dde1e1;">
                         </div>  
