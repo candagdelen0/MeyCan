@@ -2,7 +2,7 @@
 include("fonksiyon.php");
 ob_start();
 session_start();
-
+@$masaid = $_GET["masaid"];
 ?>
 
 <!DOCTYPE html>
@@ -19,9 +19,38 @@ session_start();
 <body>
 
 <?php
+
+    function benimsorgum($vt,$sorgu,$tercih) {
+        $b=$vt->prepare($sorgu);
+        $b->execute();
+        if ($tercih==1):
+            return $c=$b->get_result();  
+        endif;
+    }
+
     function uyari($mesaj,$renk) {
         echo '<div class="alert alert-'.$renk.' mt-4 text-center">'.$mesaj.'</div>';
     }
+
+    $işlem = htmlspecialchars($_GET["islem"]);
+        switch($işlem):
+            case "masagoster":
+                $id = htmlspecialchars($_GET["id"]);
+                $k = benimsorgum($db, "SELECT * FROM siparisler WHERE masaid=$id",1);
+                if($k->num_rows==0):
+                    uyari("Henüz sipariş yok","danger");
+                else:
+                    $adet = 0;
+                    $sontutar = 0;
+                    while($ontable=$k->FETCH_ASSOC()):
+                        $tutar = $ontable["adet"] * $ontable["urunfiyat"];
+                        $adet += $ontable["adet"];
+                        $sontutar += $tutar;
+                        $masaid = $ontable["masaid"];
+                    endwhile;
+                endif;
+                break;
+        endswitch;
 
 ?>
 </body>
