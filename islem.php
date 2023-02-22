@@ -37,9 +37,20 @@ session_start();
             case "masagoster":
                 $id = htmlspecialchars($_GET["id"]);
                 $k = benimsorgum($db, "SELECT * FROM siparisler WHERE masaid=$id",1);
+        
                 if($k->num_rows==0):
                     uyari("Henüz sipariş yok","danger");
                 else:
+                    echo '<table class="table table-bordered table-striped text-center mt-2">
+                        <thead>
+                            <tr class="bg-dark text-white">
+                                <th scope="col" id="hop1">Ürün Adı</th>
+                                <th scope="col" id="hop2">Adet</th>
+                                <th scope="col" id="hop3">Tutar</th>
+                                <th scope="col" id="hop4">İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody>';
                     $adet = 0;
                     $sontutar = 0;
                     while($ontable=$k->FETCH_ASSOC()):
@@ -47,7 +58,25 @@ session_start();
                         $adet += $ontable["adet"];
                         $sontutar += $tutar;
                         $masaid = $ontable["masaid"];
+        
+                        echo '<tr>
+                            <td class="mx-auto text-center p-4">'.$ontable["urunad"].'</td>
+                            <td class="mx-auto text-center p-4">'.$ontable["adet"].'</td>
+                            <td class="mx-auto text-center p-4">'.number_format($tutar,2,'.',',').'</td>
+                            <td id="yakala"><a class="btn btn-danger mt-2 text-white" sectionId="'.$ontable["urunid"].'" sectionId2="'.$masaid.'" >SİL</a></td>
+                        </tr>';
+        
                     endwhile;
+        
+                    echo '</tbody></table>
+                    <div class = "row">
+                        <div class = "col-md-12">
+                            <form id = "hesapalform">
+                                <input type="hidden" name="masaid" value="'.$masaid.'"/>
+                                <button type="button" id="hesapalbtn" value="HESAP AL" style="font-weight:bold; height:40px;" class="btn btn-dark btn-block mt-2">HESAP AL</button>
+                            </form>
+                        </div>
+                    </div>';
                 endif;
                 break;
         endswitch;
