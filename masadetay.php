@@ -36,7 +36,7 @@ $masam = new Sistem;
 	        })
             $('#urunler a').click(function(){		
 	        var sectionId=$(this).attr('sectionId');
-	        $("#sonuc").load("islemler.php?islem=urun&katid=" + sectionId);
+	        $("#sonuc").load("islem.php?islem=urun&katid=" + sectionId);
 	        })
         });
 </script>
