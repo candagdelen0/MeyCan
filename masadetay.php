@@ -14,6 +14,7 @@ $masam = new Sistem;
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script src="Dosyalar/jquery-3.6.2.min.js"></script>
+    <link rel="stylesheet" href="Dosyalar/style.css">
     <title>Masa Bilgi</title>
 
     <script>
@@ -33,6 +34,10 @@ $masam = new Sistem;
 			        },			
 		        })		
 	        })
+            $('#urunler a').click(function(){		
+	        var sectionId=$(this).attr('sectionId');
+	        $("#sonuc").load("islemler.php?islem=urun&katid=" + sectionId);
+	        })
         });
 </script>
 </head>
@@ -46,7 +51,7 @@ $masam = new Sistem;
         <div class="row border border-dark m-1" id="div1" style="min-height:700px;">
             <div class="col-md-4 border-end border-dark">
                 <div class="row">
-                    <div class="col-md-12 border-bottom border-success bg-success text-white mx-auto p-4 text-center" style="min-height:100px; font-size:36px;">
+                    <div class="col-md-12 border-bottom border-success bg-success text-white mx-auto p-4 text-center" id="a1">
                         <a href="index.php" class="btn btn-primary">Anasayfa</a><br>    
                         <?php echo $dizi["ad"]; ?>
                     </div>
@@ -62,10 +67,10 @@ $masam = new Sistem;
             <div class="col-md-8"> 
                 <div class="row pt-2">
                     <form id="formum">
-                        <div class="col-md-12" style="min-height:200px; ">
+                        <div class="col-md-12" id="urunler">
                             <?php $masam->urungrubu($db); ?>
                         </div>     
-                        <div class="col-md-12 text-center" style="min-height:410px; background-color:#dde1e1;">
+                        <div class="col-md-12 text-center" id="sonuc">
                         </div>  
                         <div class="col-md-12" style="min-height:170px;">
                             <div class="row">
